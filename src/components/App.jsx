@@ -99,6 +99,10 @@ function App() {
     return todos.filter(todo => !todo.isComplete).length;
   };
 
+  const clearCompletedItems = () => {
+    setTodos(todos.filter(todo => !todo.isComplete));
+  };
+
   return (
     <div className="App shadow-lg p-5 my-10 border rounded mx-5">
       <div className="todo_app">
@@ -115,6 +119,7 @@ function App() {
             updateTodo={updateTodo}
             deleteTodo={deleteTodo}
             remainings={remainings}
+            clearCompletedItems={clearCompletedItems}
           />
         ) : (
           <NoTodos />
