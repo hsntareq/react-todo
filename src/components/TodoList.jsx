@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 PropTypes.PropTypes = {
-  addTodo: PropTypes.func.isRequired,
+  todos: PropTypes.array.isRequired,
   completeTodo: PropTypes.func.isRequired,
   markAsEditing: PropTypes.func.isRequired,
   updateTodo: PropTypes.func.isRequired,
+  addTodo: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
 };
 
