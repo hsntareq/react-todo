@@ -72,16 +72,31 @@ function App() {
     setTodos(updatedTodo);
   };
 
-  const markAsEditing = id => {
+  const cancelEditing = id => {
     setTodos([...todos].filter(todo => todo.id !== id));
     const updatedTodo = todos.map(todo => {
       if (todo.id === id) {
-        todo.isEditing = !todo.isEditing;
+        todo.isEditing = false;
       }
       return todo;
     });
 
     setTodos(updatedTodo);
+  };
+  const markAsEditing = id => {
+    setTodos([...todos].filter(todo => todo.id !== id));
+    const updatedTodo = todos.map(todo => {
+      if (todo.id === id) {
+        todo.isEditing = true;
+      }
+      return todo;
+    });
+
+    setTodos(updatedTodo);
+  };
+
+  const remainings = () => {
+    return todos.filter(todo => !todo.isComplete).length;
   };
 
   return (
@@ -96,8 +111,10 @@ function App() {
             todos={todos}
             completeTodo={completeTodo}
             markAsEditing={markAsEditing}
+            cancelEditing={cancelEditing}
             updateTodo={updateTodo}
             deleteTodo={deleteTodo}
+            remainings={remainings}
           />
         ) : (
           <NoTodos />

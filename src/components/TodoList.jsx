@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import RemainingTodos from './RemainingTodos';
 
-PropTypes.PropTypes = {
+TodoList.propTypes = {
   todos: PropTypes.array.isRequired,
+  cancelEditing: PropTypes.func.isRequired,
   completeTodo: PropTypes.func.isRequired,
   markAsEditing: PropTypes.func.isRequired,
   updateTodo: PropTypes.func.isRequired,
-  addTodo: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired,
+  remainings: PropTypes.func.isRequired,
 };
 
-export default function TodoList(props) {
+function TodoList(props) {
   return (
     <>
       <ul className="divide-y divide-slate-200">
@@ -47,7 +49,7 @@ export default function TodoList(props) {
                     props.updateTodo(e, todo.id);
                   }
                   if (e.key === 'Escape') {
-                    props.markAsEditing(todo.id);
+                    props.cancelEditing(todo.id);
                   }
                 }}
                 autoFocus
@@ -68,7 +70,7 @@ export default function TodoList(props) {
         <button className="border px-3 py-1 rounded-md hover:bg-slate-100 active:bg-slate-200">
           Check All
         </button>
-        <span>3 items remaining</span>
+        <RemainingTodos remainings={props.remainings} />
       </div>
       <div className="flex justify-between pt-3">
         <div className="flex gap-1">
@@ -91,3 +93,4 @@ export default function TodoList(props) {
     </>
   );
 }
+export default TodoList;
