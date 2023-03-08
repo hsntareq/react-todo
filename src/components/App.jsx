@@ -103,6 +103,15 @@ function App() {
     setTodos(todos.filter(todo => !todo.isComplete));
   };
 
+  const completeOrCheckAll = () => {
+    const updatedTodo = todos.map(todo => {
+      todo.isComplete = true;
+      return todo;
+    });
+
+    setTodos(updatedTodo);
+  };
+
   return (
     <div className="App shadow-lg p-5 my-10 border rounded mx-5">
       <div className="todo_app">
@@ -120,6 +129,7 @@ function App() {
             deleteTodo={deleteTodo}
             remainings={remainings}
             clearCompletedItems={clearCompletedItems}
+            completeOrCheckAll={completeOrCheckAll}
           />
         ) : (
           <NoTodos />

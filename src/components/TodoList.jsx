@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RemainingTodos from './RemainingTodos';
 import ClearCompleted from './ClearCompleted';
+import CompleteAllTodos from './CompleteAllTodos';
 
 TodoList.propTypes = {
   todos: PropTypes.array.isRequired,
@@ -66,9 +67,7 @@ function TodoList(props) {
       </ul>
 
       <div className="border-t border-b flex justify-between py-3 items-center">
-        <button className="border px-3 py-1 rounded-md hover:bg-slate-100 active:bg-slate-200">
-          Check All
-        </button>
+        <CompleteAllTodos completeOrCheckAll={props.completeOrCheckAll} />
         <RemainingTodos remainings={props.remainings} />
       </div>
       <div className="flex justify-between pt-3">
