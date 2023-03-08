@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RemainingTodos from './RemainingTodos';
 import ClearCompleted from './ClearCompleted';
 import CompleteAllTodos from './CompleteAllTodos';
+import FilterTodos from './FilterTodos';
 
 TodoList.propTypes = {
   todos: PropTypes.array.isRequired,
@@ -10,13 +11,18 @@ TodoList.propTypes = {
   completeTodo: PropTypes.func.isRequired,
   markAsEditing: PropTypes.func.isRequired,
   updateTodo: PropTypes.func.isRequired,
+  remainings: PropTypes.func.isRequired,
+  clearCompletedItems: PropTypes.func.isRequired,
+  completeOrCheckAll: PropTypes.func.isRequired,
+  filteredTodos: PropTypes.func.isRequired,
 };
 
 function TodoList(props) {
+  const [filter, setFilter] = useState('all');
   return (
     <>
       <ul className="divide-y divide-slate-200">
-        {props.todos.map((todo, index) => (
+        {props.filteredTodos(filter).map((todo, index) => (
           <li
             key={todo.id}
             className="flex flex-row justify-between items-center"
@@ -71,20 +77,12 @@ function TodoList(props) {
         <RemainingTodos remainings={props.remainings} />
       </div>
       <div className="flex justify-between pt-3">
-        <div className="flex gap-1">
-          <button className="border px-3 py-1 rounded-md hover:bg-slate-100 active:bg-slate-200">
-            All
-          </button>
-          <button className="border border-transparent hover:border-inherit hover:border px-3 py-1 rounded-md hover:bg-slate-100 active:bg-slate-200">
-            Active
-          </button>
-          <button className="border border-transparent hover:border-inherit hover:border px-3 py-1 rounded-md hover:bg-slate-100 active:bg-slate-200">
-            Completed
-          </button>
-        </div>
-        <div>
-          <ClearCompleted clearCompletedItems={props.clearCompletedItems} />
-        </div>
+        <FilterTodos
+          filteredTodos={props.filteredTodos}
+          filter={filter}
+          setFilter={setFilter}
+        />
+        <ClearCompleted clearCompletedItems={props.clearCompletedItems} />
       </div>
     </>
   );

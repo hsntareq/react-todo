@@ -23,7 +23,13 @@ function App() {
     },
   ]);
 
-  const [idTodo, setIdTodo] = useState('');
+  const newTodoId =
+    todos.reduce(
+      (max, character) => (character.id > max ? character.id : max),
+      todos[0].id
+    ) + 1;
+
+  const [idTodo, setIdTodo] = useState(newTodoId);
 
   const addTodo = title => {
     setTodos([
@@ -36,13 +42,12 @@ function App() {
       },
     ]);
 
-    setIdTodo(prevIdTodo => prevIdTodo + 1);
+    setIdTodo(prevId => prevId + 1);
   };
 
   const deleteTodo = id => {
     setTodos([...todos].filter(todo => todo.id !== id));
   };
-
   const completeTodo = id => {
     setTodos([...todos].filter(todo => todo.id !== id));
     const updatedTodo = todos.map(todo => {
@@ -112,6 +117,18 @@ function App() {
     setTodos(updatedTodo);
   };
 
+  const filteredTodos = filter => {
+    if (filter === 'all') {
+      return todos;
+    }
+    if (filter === 'active') {
+      return todos.filter(todo => !todo.isComplete);
+    }
+    if (filter === 'completed') {
+      return todos.filter(todo => todo.isComplete);
+    }
+  };
+
   return (
     <div className="App shadow-lg p-5 my-10 border rounded mx-5">
       <div className="todo_app">
@@ -130,6 +147,7 @@ function App() {
             remainings={remainings}
             clearCompletedItems={clearCompletedItems}
             completeOrCheckAll={completeOrCheckAll}
+            filteredTodos={filteredTodos}
           />
         ) : (
           <NoTodos />
