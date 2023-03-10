@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RemainingTodos from './RemainingTodos';
 import ClearCompleted from './ClearCompleted';
@@ -19,6 +19,11 @@ TodoList.propTypes = {
 
 function TodoList(props) {
   const [filter, setFilter] = useState('all');
+
+  useEffect(() => {
+    setFilter('all');
+  }, [props.todos]);
+
   return (
     <>
       <ul className="divide-y divide-slate-200">

@@ -23,13 +23,9 @@ function App() {
     },
   ]);
 
-  const newTodoId =
-    todos.reduce(
-      (max, character) => (character.id > max ? character.id : max),
-      todos[0].id
-    ) + 1;
+  const newNex = Math.max(...todos.map(o => o.id)) + 1;
 
-  const [idTodo, setIdTodo] = useState(newTodoId);
+  const [idTodo, setIdTodo] = useState(newNex);
 
   const addTodo = title => {
     setTodos([

@@ -10,7 +10,7 @@ export default function ClearCompleted(props) {
     <div>
       <button
         onClick={props.clearCompletedItems}
-        className="border px-3 py-1 rounded-md hover:bg-slate-100 active:bg-slate-200"
+        className="hover:bg-slate-100 active:bg-slate-200  px-3 py-1 rounded-md ring-1 focus:ring-1 active:ring-1 ring-gray-300 bg-slate-50"
       >
         Clear completed
       </button>
